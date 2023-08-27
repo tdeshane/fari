@@ -4,6 +4,10 @@ import random
 WIDTH = 1040
 HEIGHT = 720
 
+LEVEL_2_SCORE = 9000
+LEVEL_3_SCORE = 12000
+LEVEL_4_SCORE = 246000
+
 enemies = []
 
 #pygame setup
@@ -54,14 +58,19 @@ health = 100
 
 #initilize score
 score = 0
+score = LEVEL_3_SCORE
 
 MAX_SCREEN_X = 1040
 MAX_SCREEN_Y = 720
 
-level = 1
-#score = 246000
-teleport = False
+level = 3
 
+
+
+
+teleport = False
+teleportX = -1
+teleportY = -1
 
 # Game loop
 running = True
@@ -144,7 +153,7 @@ while running:
 
         #in level 3, when different scores are reached, add teleports for the player
         # if score is greater than 12000 and is a multiple of 1000, draw a teleport
-        if score > 246000 and score % 1000 == 0:
+        if score > LEVEL_3_SCORE and score % 1000 == 0 and teleport == False:
             #draw teleport in random location
             randX = random.randint(0, MAX_SCREEN_X)
             randY = random.randint(0, MAX_SCREEN_Y)
@@ -153,22 +162,26 @@ while running:
             teleportX = randX
             teleportY = randY
             teleport = True
+            print("teleportX: " + str(teleportX))
+            print("teleportY: " + str(teleportY))
 
         if(teleport == True):
             #draw teleport
             pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(teleportX, teleportY, 30, 30))
  
             #if player touches teleport, move player to random location
-            if playerX == randX and playerY == randY:
+            if playerX == teleportX and playerY == teleportY:
                 playerX = random.randint(0, MAX_SCREEN_X)
                 playerY = random.randint(0, MAX_SCREEN_Y)
-                #increase score by 100244
+                #increase score by 1024
+                score += 1024
                 print("teleport")
                 print(playerX)
                 print(playerY)
-                print(randX)
-                print(randY)
                 print(score)
+                teleportX = -1
+                teleportY = -1
+                teleport = False
      
 
 
@@ -263,11 +276,13 @@ while running:
     clock.tick(60)
     score += 1
 
-    #if score is 9000, go to level 2
-    if score == 9000:
+    #set level based on score
+    if score == LEVEL_2_SCORE:
         level = 2
-    elif score == 246000:
+    elif score == LEVEL_3_SCORE:
         level = 3
+    elif score == LEVEL_4_SCORE:
+        level = 4
 
 
 
