@@ -88,6 +88,7 @@ magma_monsterY = 100
 magma_monster_difficulty = "hard"
 magma_monster_age = 5
 magma_monster_level = MAGMA_MONSTER_LEVEL
+magma_monster_health = 50000
 
 last_shield_spawn_time = 0
 shield_spawn_interval = 1000  # 10 seconds in milliseconds
@@ -374,7 +375,7 @@ while running:
             health -= 5
             print(health)
 
-    elif level == 956842987:
+    elif level == LEVEL_956842987_SCORE:
 
 
         #add upgrades for player
@@ -417,58 +418,6 @@ while running:
             sonic_blastY = -1
 
 
-    elif level == MAGMA_MONSTER_LEVEL:
-        #make the magma monster
-        #draw a circle for the magma monster's head
-        pygame.draw.circle(screen, (255, 255, 255), (magma_monsterX, magma_monsterY), 100)
-        #draw a rectangle for the magma monster's body
-        pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(magma_monsterX-100, magma_monsterY, 200, 200))
-        #draw a circle for the magma monster's left eye
-        pygame.draw.circle(screen, (255, 255, 255), (magma_monsterX-50, magma_monsterY-50), 20)
-        #draw a circle for the magma monster's right eye
-        pygame.draw.circle(screen, (255, 255, 255), (magma_monsterX+50, magma_monsterY-50), 20)
-        #draw a circle for the magma monster's left pupil
-        pygame.draw.circle(screen, (0, 0, 0), (magma_monsterX-50, magma_monsterY-50), 10)
-        #draw a circle for the magma monster's right pupil
-        pygame.draw.circle(screen, (0, 0, 0), (magma_monsterX+50, magma_monsterY-50), 10)
-        #draw a circle for the magma monster's mouth
-        pygame.draw.circle(screen, (255, 0, 0), (magma_monsterX, magma_monsterY+50), 30)
-
-        #move the magma monster closer to the player diagonally
-        if magma_monsterX < playerX and magma_monsterY < playerY:
-            magma_monsterX += 1
-            magma_monsterY += 1
-        elif magma_monsterX > playerX and magma_monsterY > playerY:
-            magma_monsterX -= 1
-            magma_monsterY -= 1
-        elif magma_monsterX < playerX and magma_monsterY > playerY:
-            magma_monsterX += 1
-            magma_monsterY -= 1
-        elif magma_monsterX > playerX and magma_monsterY < playerY:
-            magma_monsterX -= 1
-            magma_monsterY += 1
-        #also move horizontally and vertically
-        elif magma_monsterX < playerX:
-            magma_monsterX += 1
-        elif magma_monsterX > playerX:
-            magma_monsterX -= 1
-        elif magma_monsterY < playerY:
-            magma_monsterY += 1
-        elif magma_monsterY > playerY:
-            magma_monsterY -= 1
-
-        #if magma monster touches player, decrease health
-        if magma_monsterX == playerX and magma_monsterY == playerY:
-            health -= 5
-            print(health)
-
-        
-
-
-
-        
-
-        
 
         
         #draw shield
@@ -536,7 +485,59 @@ while running:
         # Move the demon of the dark closer to the player
         # ... (retain your existing code for moving the demon)
 
+
+    
+    elif level == MAGMA_MONSTER_LEVEL:
+        #make the magma monster
+        #draw a circle for the magma monster's head
+        pygame.draw.circle(screen, (255, 255, 255), (magma_monsterX, magma_monsterY), 100)
+        #draw a rectangle for the magma monster's body
+        pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(magma_monsterX-100, magma_monsterY, 200, 200))
+        #draw a circle for the magma monster's left eye
+        pygame.draw.circle(screen, (255, 255, 255), (magma_monsterX-50, magma_monsterY-50), 20)
+        #draw a circle for the magma monster's right eye
+        pygame.draw.circle(screen, (255, 255, 255), (magma_monsterX+50, magma_monsterY-50), 20)
+        #draw a circle for the magma monster's left pupil
+        pygame.draw.circle(screen, (0, 0, 0), (magma_monsterX-50, magma_monsterY-50), 10)
+        #draw a circle for the magma monster's right pupil
+        pygame.draw.circle(screen, (0, 0, 0), (magma_monsterX+50, magma_monsterY-50), 10)
+        #draw a circle for the magma monster's mouth
+        pygame.draw.circle(screen, (255, 0, 0), (magma_monsterX, magma_monsterY+50), 30)
+
+        #move the magma monster closer to the player diagonally
+        if magma_monsterX < playerX and magma_monsterY < playerY:
+            magma_monsterX += 1
+            magma_monsterY += 1
+        elif magma_monsterX > playerX and magma_monsterY > playerY:
+            magma_monsterX -= 1
+            magma_monsterY -= 1
+        elif magma_monsterX < playerX and magma_monsterY > playerY:
+            magma_monsterX += 1
+            magma_monsterY -= 1
+        elif magma_monsterX > playerX and magma_monsterY < playerY:
+            magma_monsterX -= 1
+            magma_monsterY += 1
+        #also move horizontally and vertically
+        elif magma_monsterX < playerX:
+            magma_monsterX += 1
+        elif magma_monsterX > playerX:
+            magma_monsterX -= 1
+        elif magma_monsterY < playerY:
+            magma_monsterY += 1
+        elif magma_monsterY > playerY:
+            magma_monsterY -= 1
+
+        #if magma monster touches player, decrease health
+        if magma_monsterX == playerX and magma_monsterY == playerY:
+            health -= 5
+            print(health)     
+
+        #display magma monster health near the bottom of the screen
+        display_text = pygame.font.Font(None, 36).render("Magma Monster Health: " + str(magma_monster_health), True, (255, 255, 255))
+        screen.blit(display_text, (0, MAX_SCREEN_Y-66))
         
+
+
 
 
 
